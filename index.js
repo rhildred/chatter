@@ -1,33 +1,26 @@
-import {reply} from "./reply.js"
- 
-class Chat extends HTMLElement{
-    sendMessage(evt){
-        evt.preventDefault();
-        var msg = this.input.value;
-        this.input.value = ''
-        this.writeLine(msg)
-     }
-     addMessage(e){
-        var msg = e.data ? JSON.parse(e.data) : e;
-        thiswriteLine(`${msg.FROM}: ${msg.MESSAGE}`)
-     }
-     writeLine(text){
-        this.messages.insertAdjacentHTML("beforeend",`<li class="message-item item-secondary">Miguel says: ${text}</li>`);
-        this.messages.insertAdjacentHTML("beforeend",`<li class="message-item item-primary">Bot says: ${reply(text)}</li>`);
-        this.messages.scrollTop = this.messages.scrollHeight;
-     }
-    connectedCallback(){
-        this.innerHTML = `
-        <style>
-ul { list-style: none; } 
+import { reply } from "./reply.js"
 
-h1 {
-  text-transform: uppercase;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
-  color: #3c3c3e;
-}
+class Chat extends HTMLElement {
+  sendMessage(evt) {
+    evt.preventDefault();
+    var msg = this.input.value;
+    this.input.value = ''
+    this.writeLine(msg)
+  }
+  addMessage(e) {
+    var msg = e.data ? JSON.parse(e.data) : e;
+    thiswriteLine(`${msg.FROM}: ${msg.MESSAGE}`)
+  }
+  writeLine(text) {
+    this.messages.insertAdjacentHTML("beforeend", `<li class="message-item item-secondary">You say: ${text}</li>`);
+    this.messages.insertAdjacentHTML("beforeend", `<li class="message-item item-primary">Bot says: ${reply(text)}</li>`);
+    this.messages.scrollTop = this.messages.scrollHeight;
+  }
+  connectedCallback() {
+    this.innerHTML = `
+        <style>
+
+.chat ul { list-style: none; } 
 
 /* chatbox */
 .chat {
@@ -40,52 +33,54 @@ h1 {
 }
 
 /* messages */
-.messages {
+.chat .messages {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 500px;
 }
 
-.message-list {
+.chat .message-list {
   overflow-y: scroll;
   max-height: 500px;
 }
 
-.message-item {
+.chat .message-item {
   padding: 20px;
   border-radius: 0.75rem;
   margin: 20px 0;
 }
 
-.message-item:last-child {
+.chat .message-item:last-child {
   margin-bottom: 0;
 }
 
-.item-primary {
+.chat .item-primary {
   background-color: #f6f7f8;
   color: #3c3c3e;
+  margin-right: 2em;
 }
 
-.item-secondary {
+.chat .item-secondary {
   background-color: #5ccad7;
   color: #fff;
+  margin-left: 2em;
 }
 
 /* messages input */
-.message-input {
+.chat .message-input {
   display: flex;
   padding: 20px 0;
 }
 
-.message-input input {
+.chat .message-input input {
   width: 100%;
   padding: 10px;
   border-radius: 2rem;
   border: 1px solid #a5a5a5;
 }
 
-.message-input button {
+.chat .message-input button {
   padding: 10px;
   margin-left: 10px;
   border-radius: 5px;
@@ -108,10 +103,10 @@ h1 {
     </div>
   </div>
         `;
-        this.input = this.querySelector("input");
-        this.messages = this.querySelector(".message-list");
-        this.querySelector("form").addEventListener('submit', this.sendMessage.bind(this));
-    }
+    this.input = this.querySelector("input");
+    this.messages = this.querySelector(".message-list");
+    this.querySelector("form").addEventListener('submit', this.sendMessage.bind(this));
+  }
 }
 
 customElements.define("x-chat", Chat);
