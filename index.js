@@ -9,7 +9,7 @@ class Chat extends HTMLElement {
   }
   addMessage(e) {
     var msg = e.data ? JSON.parse(e.data) : e;
-    thiswriteLine(`${msg.FROM}: ${msg.MESSAGE}`)
+    this.writeLine(`${msg.FROM}: ${msg.MESSAGE}`)
   }
   writeLine(text) {
     this.messages.insertAdjacentHTML("beforeend", `<li class="message-item item-secondary">You say: ${text}</li>`);
@@ -17,13 +17,14 @@ class Chat extends HTMLElement {
     this.messages.scrollTop = this.messages.scrollHeight;
   }
   connectedCallback() {
+    const suffix = (Math.random()*100).toFixed().toString();
     this.innerHTML = `
         <style>
 
-.chat ul { list-style: none; } 
+.chat${suffix} ul { list-style: none; } 
 
 /* chatbox */
-.chat {
+.chat${suffix} {
   max-width: 400px;
   min-height: 400px;
   background-color: #fff; 
@@ -33,54 +34,54 @@ class Chat extends HTMLElement {
 }
 
 /* messages */
-.chat .messages {
+.chat${suffix} .messages {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 500px;
 }
 
-.chat .message-list {
+.chat${suffix} .message-list {
   overflow-y: scroll;
   max-height: 500px;
 }
 
-.chat .message-item {
+.chat${suffix} .message-item {
   padding: 20px;
   border-radius: 0.75rem;
   margin: 20px 0;
 }
 
-.chat .message-item:last-child {
+.chat${suffix} .message-item:last-child {
   margin-bottom: 0;
 }
 
-.chat .item-primary {
+.chat${suffix} .item-primary {
   background-color: #f6f7f8;
   color: #3c3c3e;
   margin-right: 2em;
 }
 
-.chat .item-secondary {
+.chat${suffix} .item-secondary {
   background-color: #5ccad7;
   color: #fff;
   margin-left: 2em;
 }
 
 /* messages input */
-.chat .message-input {
+.chat${suffix} .message-input {
   display: flex;
   padding: 20px 0;
 }
 
-.chat .message-input input {
+.chat${suffix} .message-input input {
   width: 100%;
   padding: 10px;
   border-radius: 2rem;
   border: 1px solid #a5a5a5;
 }
 
-.chat .message-input button {
+.chat${suffix} .message-input button {
   padding: 10px;
   margin-left: 10px;
   border-radius: 5px;
@@ -88,7 +89,7 @@ class Chat extends HTMLElement {
   cursor: pointer;
 }        
         </style>
-          <div class="chat">
+          <div class="chat${suffix}">
     <div class="messages">
       <ul class="message-list">
         
