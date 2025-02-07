@@ -42,7 +42,7 @@ class Chat extends HTMLElement {
 }
 
 .chat${suffix} .message-list {
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 500px;
 }
 
