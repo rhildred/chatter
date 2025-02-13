@@ -1,6 +1,10 @@
-import { reply } from "./reply.js"
+import { RapidTestOrder } from "./RapidTestOrder.js"
 
 class Chat extends HTMLElement {
+  constructor(){
+    super();
+    this.oOrder = new RapidTestOrder("123-456-7891");
+  }
   sendMessage(evt) {
     evt.preventDefault();
     var msg = this.input.value;
@@ -13,7 +17,13 @@ class Chat extends HTMLElement {
   }
   writeLine(text) {
     this.messages.insertAdjacentHTML("beforeend", `<li class="message-item item-secondary">You say: ${text}</li>`);
-    this.messages.insertAdjacentHTML("beforeend", `<li class="message-item item-primary">Bot says: ${reply(text)}</li>`);
+    const aMessages = this.oOrder.handleInput(text);
+    if(this.oOrder.isDone){
+      this.oOrder = new RapidTestOrder("456-789-1023")
+    }
+    for(let message of aMessages){
+      this.messages.insertAdjacentHTML("beforeend", `<li class="message-item item-primary">Bot says: ${message}</li>`);
+    }
     this.messages.scrollTop = this.messages.scrollHeight;
   }
   connectedCallback() {
@@ -92,10 +102,6 @@ class Chat extends HTMLElement {
           <div class="chat${suffix}">
     <div class="messages">
       <ul class="message-list">
-        
-        <li class="message-item item-primary">
-          Bot says: oi, tudo bom?
-        </li>
       </ul>
       <form class="message-input">
         <input type="text" placeholder="Type your message..." />
