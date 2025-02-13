@@ -1,4 +1,4 @@
-export class RapidTestOrder {
+export class Order {
     constructor(sFrom) {
       this.OrderState = {
         WELCOMING: () => {

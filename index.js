@@ -1,9 +1,9 @@
-import { RapidTestOrder } from "./RapidTestOrder.js"
+import { Order } from "./Order.js"
 
 class Chat extends HTMLElement {
   constructor(){
     super();
-    this.oOrder = new RapidTestOrder("123-456-7891");
+    this.oOrder = new Order("123-456-7891");
   }
   sendMessage(evt) {
     evt.preventDefault();
@@ -19,7 +19,7 @@ class Chat extends HTMLElement {
     this.messages.insertAdjacentHTML("beforeend", `<li class="message-item item-secondary">You say: ${text}</li>`);
     const aMessages = this.oOrder.handleInput(text);
     if(this.oOrder.isDone){
-      this.oOrder = new RapidTestOrder("456-789-1023")
+      this.oOrder = new Order("456-789-1023")
     }
     for(let message of aMessages){
       this.messages.insertAdjacentHTML("beforeend", `<li class="message-item item-primary">Bot says: ${message}</li>`);
