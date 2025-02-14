@@ -18,7 +18,7 @@ export class Order {
             aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
           } else {
             aReturn.push("Thanks for trying our reservation system");
-            aReturn.push("Maybe next time")
+            aReturn.push("Maybe next time");
           }
           return aReturn;
         }
